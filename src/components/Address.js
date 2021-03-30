@@ -8,7 +8,7 @@ export default class Address extends React.Component {
     const { id } = this.props;
     return (
         <div className="control">
-          <input type="text" placeholder={`Address ${id + 1}:`} className="address input"/>
+          <input type="text" placeholder={`Address ${id + 1}:`} className="address input" required/>
         </div>
     );
   };

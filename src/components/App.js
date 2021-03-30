@@ -60,60 +60,178 @@ export default class App extends React.Component {
     });
   };
 
+  validate() {
+    let valid = false
+
+    const name = document.querySelector('.name');
+    if (name.validity.valid) {
+      valid = true;
+    } else {
+      valid = false;
+      return false;
+    }
+
+    const phone = document.querySelector('.phone-number');
+    if (phone.validity.valid) {
+      valid = true;
+    } else {
+      valid = false;
+      return false;
+    }
+
+    const email = document.querySelector('.email');
+    if (email.validity.valid) {
+      valid = true;
+    } else {
+      valid = false;
+      return false;
+    }
+
+    const addresses = document.querySelectorAll('.address');
+    for(let i = 0; i < addresses.length; i++) {
+      if (addresses[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+    const eduTitles = document.querySelectorAll('.title-study');
+    for(let i = 0; i < eduTitles.length; i++) {
+      if (eduTitles[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+    const schools = document.querySelectorAll('.school-name');
+    for(let i = 0; i < schools.length; i++) {
+      if (schools[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+    const eduDates = document.querySelectorAll('.study-date');
+    for(let i = 0; i < eduDates.length; i++) {
+      if (eduDates[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+    const workTitles = document.querySelectorAll('.job-title');
+    for(let i = 0; i < workTitles.length; i++) {
+      if (workTitles[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+
+    const companies = document.querySelectorAll('.company-name');
+    for(let i = 0; i < companies.length; i++) {
+      if (companies[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+
+    const workDates = document.querySelectorAll('.job-date');
+    for(let i = 0; i < workDates.length; i++) {
+      if (workDates[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+
+    const tasks = document.querySelectorAll('.tasks');
+    for(let i = 0; i < tasks.length; i++) {
+      if (tasks[i].validity.valid) {
+        valid = true;
+      } else {
+        valid = false;
+        return valid;
+      };
+    };
+
+
+    return valid;
+  }
+
   onCVSubmit() {
     // push field values to an object and render it
 
-    const addresses = Array.from(document.querySelectorAll('.address'))
-      .map((address) => address.value);
+    if (this.validate()) {
+      const addresses = Array.from(document.querySelectorAll('.address'))
+        .map((address) => address.value);
 
-    // create education experience objects
-    
-    const eduTitles = document.querySelectorAll('.title-study');
+      // create education experience objects
+      
+      const eduTitles = document.querySelectorAll('.title-study');
 
-    const schools = document.querySelectorAll('.school-name');
+      const schools = document.querySelectorAll('.school-name');
 
-    const eduDates = document.querySelectorAll('.study-date');
+      const eduDates = document.querySelectorAll('.study-date');
 
-    const educations = [];
+      const educations = [];
 
-    for(let i = 0; i < this.state.education; i++) {
-      educations.push({
-        title: eduTitles[i].value,
-        date: eduDates[i].value,
-        school: schools[i].value
-      });
+      for(let i = 0; i < this.state.education; i++) {
+        educations.push({
+          title: eduTitles[i].value,
+          date: eduDates[i].value,
+          school: schools[i].value
+        });
+      };
+
+      // create practical experiences object
+
+      const workTitles = document.querySelectorAll('.job-title');
+
+      const companies = document.querySelectorAll('.company-name');
+
+      const workDates = document.querySelectorAll('.job-date');
+
+      const tasks = document.querySelectorAll('.tasks');
+
+      const experiences = [];
+      for(let i = 0; i < this.state.education; i++) {
+        experiences.push({
+          title: workTitles[i].value,
+          company: companies[i].value,
+          date: workDates[i].value,
+          tasks: tasks[i].value
+        });
+      };    
+
+      const values = {
+        name: document.querySelector('.name').value,
+        email: document.querySelector('.email').value,
+        phone: document.querySelector('.phone-number').value,
+        addresses,
+        educations,
+        experiences
+      };
+      
+      ReactDOM.render(<Curriculum values={values}/>, document.getElementById('root'));
+    } else {
+      alert('every field is required');
     };
-
-    // create practical experiences object
-
-    const workTitles = document.querySelectorAll('.job-title');
-
-    const companies = document.querySelectorAll('.company-name');
-
-    const workDates = document.querySelectorAll('.job-date');
-
-    const tasks = document.querySelectorAll('.tasks');
-
-    const experiences = [];
-    for(let i = 0; i < this.state.education; i++) {
-      experiences.push({
-        title: workTitles[i].value,
-        company: companies[i].value,
-        date: workDates[i].value,
-        tasks: tasks[i].value
-      });
-    };    
-
-    const values = {
-      name: document.querySelector('.name').value,
-      email: document.querySelector('.email').value,
-      phone: document.querySelector('.phone-number').value,
-      addresses,
-      educations,
-      experiences
-    };
-    
-    ReactDOM.render(<Curriculum values={values}/>, document.getElementById('root'));
   };
 
   /* componentDidMount() {

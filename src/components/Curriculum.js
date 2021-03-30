@@ -7,7 +7,6 @@ export default class Curriculum extends React.Component {
 
   render() {
     const { values } = this.props;
-    console.log(values)
 
     const addresses = [];
     values.addresses.forEach((address, index) => {
